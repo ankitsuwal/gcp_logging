@@ -1,0 +1,23 @@
+version: "3.8"
+
+services:
+  logging-service:
+    build:
+      context: ./cloud-logging  # path where you keep your dockerfile
+      dockerfile: Dockerfile.dev
+    container_name: logging-server
+    ports:
+      - "5005:5000"
+    volumes:
+    - ./cloud-logging/src:/src
+    environment:
+      - GOOGLE_APPLICATION_CREDENTIALS
+    tty: true
+    restart: always
+    # command: flask run --host=0.0.0.0 --port=80
+    # networks:
+    #   - logging-network
+
+# networks:
+#   logging-network:
+#     driver: bridge
